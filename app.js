@@ -2,8 +2,6 @@ const express = require("express");
 
 const bodyParser = require("body-parser");
 
-const request = require("request");
-
 const htpps = require("https");
 
 const app = express();
