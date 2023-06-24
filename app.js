@@ -43,17 +43,19 @@ app.post("/" , function(req,res){
         auth: "ANii:" + process.env.API_KEY
     }
 
-    const request = htpps.request(url, options , function(response){
-        if(response.statusCode === 200){
-            res.sendFile(__dirname + "/success.html");
-        }else{
-            res.sendFile(__dirname + "/failure.html");
-        }
-
-
-        response.on("data", function(data){
-             console.log(JSON.parse(data));
+    const request = htpps.request(url, options, function (response) {
+        response.on("data", function (data) {
+        processData(data);
         });
+        function processData(data) {
+            if (JSON.parse(data).error_count>=1) {
+                res.sendFile(__dirname + "/mailfail.html");
+            } else if(response.statusCode === 200){
+                res.sendFile(__dirname + "/success.html");
+            } else {
+                res.sendFile(__dirname + "/failure.html");
+            }
+        }
     });
     request.write(jsonData);
     request.end();
