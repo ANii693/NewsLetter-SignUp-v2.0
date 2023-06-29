@@ -8,6 +8,7 @@ const app = express();
 
 require("dotenv").config();
 
+const  PORT = process.env.PORT || 3000;
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
@@ -66,8 +67,8 @@ app.post("/failure" , function(req,res){
     res.redirect("/");
 });
 
-app.listen(process.env.PORT || 3000 , function(){
-    console.log("server is running.")
+app.listen(PORT , function(){
+    console.log(`server started at port ${port}`);
 });
 
 
